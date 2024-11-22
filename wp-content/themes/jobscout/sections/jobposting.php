@@ -1,6 +1,7 @@
 <head>
     <!-- Thêm liên kết đến Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <?php
@@ -22,7 +23,7 @@ if ($ed_jobposting && jobscout_is_wp_job_manager_activated() && $job_title) :
             <h1 class="text-center mb-4 p2 mb-2">TOP JOBS</h1>
 
             <?php if (jobscout_is_wp_job_manager_activated() && $count_posts->publish != 0) : ?>
-                <div class="row row-cols-1 row-cols-md-2 g-4">
+                <div class="row row-cols-1 row-cols-md-2 g-4" id="job-list">
                     <?php
                     $args = array(
                         'post_type'      => 'job_listing',
@@ -57,13 +58,12 @@ if ($ed_jobposting && jobscout_is_wp_job_manager_activated() && $job_title) :
                             $job_description = wp_trim_words(get_the_excerpt(), 15, '...');
                             $job_money      = get_the_job_salary();
                             $job_important  = get_the_company_tagline();
-                            $job_expires    = get_post_meta(get_the_ID(), '_job_expires', true); // Ngày hết hạn.
+                            $job_expires    = get_post_meta(get_the_ID(), '_job_expires', true);
                     ?>
                             <div class="col">
                                 <div class="job-card border rounded p-3 shadow-sm h-100">
                                     <div class="row">
                                         <div class="col-md-3">
-                                            <!-- Logo công ty -->
                                             <div class="company-logo text-center mb-3 mt-1">
                                                 <?php if ($company_logo) : ?>
                                                     <img src="<?php echo esc_url($company_logo); ?>" alt="<?php the_title(); ?>">
@@ -72,23 +72,15 @@ if ($ed_jobposting && jobscout_is_wp_job_manager_activated() && $job_title) :
                                         </div>
 
                                         <div class="col-md-9 ">
-                                            <!-- Tên công việc -->
                                             <h3 class="job-title h6 fw-bold mb-1"><?php the_title(); ?></h3>
-                                            <!-- Ngày đăng -->
                                             <p class="job-date text-muted small mt-2">Created: <?php echo esc_html($job_post_date); ?></p>
-                                            <!-- Thông tin bổ sung -->
                                             <div class="job-meta my-2">
                                                 <span class="badge bg-light text-dark border"><?php echo $job_type; ?></span>
-                                                <span class="badge bg-light text-dark border">
-                                                    <?php if ($company_name) { ?>
-                                                        <?php echo esc_html($company_name); ?>
-                                                    <?php } ?>
-                                                </span>
+                                                <span class="badge bg-light text-dark border"><?php echo esc_html($company_name); ?></span>
                                                 <span class="badge bg-light text-dark border"><?php echo esc_html($job_location); ?></span>
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- Mô tả công việc -->
                                     <ul class="job-description list-unstyled small text-muted mt-3">
                                         <li><?php echo wp_kses_post($job_description); ?></li>
                                         <li><?php echo wp_kses_post($job_important); ?></li>
@@ -105,7 +97,7 @@ if ($ed_jobposting && jobscout_is_wp_job_manager_activated() && $job_title) :
                     ?>
                 </div>
                 <div class="text-center mt-4">
-                    <button id="load-more" class="btn btn-primary" data-page="1">VIEW MORE JOBS</button>
+                    <button id="load-more" class="btn btn-primary">VIEW MORE JOBS</button>
                 </div>
             <?php else : ?>
                 <p class="text-center">Hiện tại không có công việc nào được đăng.</p>
@@ -113,6 +105,38 @@ if ($ed_jobposting && jobscout_is_wp_job_manager_activated() && $job_title) :
         </div>
     </section>
 <?php endif; ?>
+
+<script>
+    jQuery(function($){
+        var page = 2; // Bắt đầu từ trang 2 vì các bài đầu tiên đã được hiển thị
+        $('#load-more').on('click', function(){
+            var button = $(this);
+            button.text('Loading...'); // Thay đổi text thành "Loading..."
+
+            $.ajax({
+                url: '<?php echo admin_url('admin-ajax.php'); ?>',
+                type: 'GET',
+                data: {
+                    action: 'load_more_jobs', // Tên hành động cho AJAX
+                    page: page,
+                },
+                success: function(response) {
+                    if(response) {
+                        $('#job-list').append(response); // Thêm các công việc mới vào sau các công việc hiện có
+                        page++; // Tăng số trang lên
+                        button.text('VIEW MORE JOBS'); // Đặt lại text nút
+                    } else {
+                        button.text('No more jobs to load'); // Nếu không còn công việc, thay đổi text
+                        button.prop('disabled', true); // Vô hiệu hóa nút
+                    }
+                },
+                error: function() {
+                    button.text('Error, please try again');
+                }
+            });
+        });
+    });
+</script>
 
 <style>
     .top-job-section {
@@ -167,24 +191,7 @@ if ($ed_jobposting && jobscout_is_wp_job_manager_activated() && $job_title) :
         margin-bottom: 5px;
     }
 
-    @media (max-width: 768px) {
-        .job-card {
-            padding: 15px;
-        }
-
-        .job-title {
-            font-size: 14px;
-        }
-
-        .job-meta .badge {
-            font-size: 11px;
-            padding: 3px 8px;
-        }
-
-        .job-description {
-            font-size: 12px;
-        }
-    }
+    
 
     #load-more {
         margin-top: 10px;
@@ -192,11 +199,8 @@ if ($ed_jobposting && jobscout_is_wp_job_manager_activated() && $job_title) :
         font-size: 16px;
         font-weight: bold;
         color: #f57c40;
-        /* Màu cam chữ */
         border: 2px solid #f57c40;
-        /* Viền cam */
         background-color: transparent;
-        /* Nền trong suốt */
         padding: 10px 20px;
         text-align: center;
         text-transform: uppercase;
