@@ -83,6 +83,7 @@ wp_reset_postdata();
         margin: 15px;
         margin-bottom: 35px;
         display: flex;
+        flex-direction: row;
         background-color: #ffffff;
         width: 550px;
     }
