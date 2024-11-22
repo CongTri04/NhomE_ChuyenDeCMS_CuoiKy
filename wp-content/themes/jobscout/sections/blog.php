@@ -24,9 +24,6 @@ if ($query->have_posts()) : ?>
     if ($blog_heading) echo '<h2 class="title-card">' . esc_html($blog_heading) . '</h2>';
     ?>
     <div class="container-card">
-
-
-
         <?php while ($query->have_posts()) : $query->the_post(); ?>
             <div class="card">
                 <?php if (has_post_thumbnail()) : ?>
@@ -60,6 +57,7 @@ wp_reset_postdata();
         margin-top: 50px;
         margin-bottom: 10px;
         font-weight: bold;
+        font-size: 40px;
     }
 
     .container-card {
@@ -81,18 +79,19 @@ wp_reset_postdata();
 
 
     .card {
-        margin: 15px;
-        margin-bottom: 35px;
+        margin: 20px;
+        margin-bottom: 40px;
         display: flex;
         flex-direction: row;
         background-color: #ffffff;
-        width: 550px;
+        width: 600px;
         border: none;
+        
     }
 
     .card img {
-        width: 200px;
-        height: 200px;
+        width: 220px;
+        height: 220px;
         margin: 20px 10px 20px 20px;
         border-radius: 4px;
     }
