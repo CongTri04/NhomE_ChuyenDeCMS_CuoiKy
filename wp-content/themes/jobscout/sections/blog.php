@@ -57,6 +57,8 @@ wp_reset_postdata();
         margin: 0 auto;
         margin-top: 50px;
         margin-bottom: 10px;
+        font-size: 30px;
+        font-weight: bold;
     }
     .container-card {
         display: flex;
