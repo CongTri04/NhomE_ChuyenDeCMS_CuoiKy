@@ -23,10 +23,7 @@ if ($query->have_posts()) : ?>
     <?php
     if ($blog_heading) echo '<h2 class="title-card">' . esc_html($blog_heading) . '</h2>';
     ?>
-    <div class="container">
-
-
-
+    <div class="container-card">
         <?php while ($query->have_posts()) : $query->the_post(); ?>
             <div class="card">
                 <?php if (has_post_thumbnail()) : ?>
@@ -48,36 +45,53 @@ wp_reset_postdata();
 <style>
     body {
         font-family: Arial, sans-serif;
-        background-color: #f8f9fa;
+        background-color: #f2f2f2;
         margin: 0;
         padding: 0;
     }
-    .title-card{
-        text-align: center; /* Căn giữa tiêu đề */
+
+    .title-card {
+        text-align: center;
+        /* Căn giữa tiêu đề */
         margin: 0 auto;
         margin-top: 50px;
         margin-bottom: 10px;
+        font-weight: bold;
+        font-size: 40px;
     }
-    .container {
 
+    .container-card {
         display: flex;
         flex-wrap: wrap;
+        justify-content: center;
+        /* Căn giữa các thẻ con */
+        align-items: center;
+        /* Căn giữa theo chiều dọc nếu cần */
         padding: 20px;
-
+        /* Đảm bảo container nằm giữa */
+        width: 100%;
+        /* Đảm bảo container chiếm toàn bộ chiều ngang */
+        /* Giới hạn chiều rộng nếu cần */
+        box-sizing: border-box;
+        /* Đảm bảo padding không ảnh hưởng đến kích thước */
+        border: none;
     }
 
+
     .card {
-        margin: 15px;
-        margin-bottom: 35px;
+        margin: 20px;
+        margin-bottom: 40px;
         display: flex;
+        flex-direction: row;
         background-color: #ffffff;
-        width: 535px;
-        border: 1px solid #e0e0e0;
+        width: 600px;
+        border: none;
+        
     }
 
     .card img {
-        width: 200px;
-        height: 200px;
+        width: 220px;
+        height: 220px;
         margin: 20px 10px 20px 20px;
         border-radius: 4px;
     }

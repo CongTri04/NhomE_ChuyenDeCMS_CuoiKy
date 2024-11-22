@@ -86,6 +86,8 @@ function current_time( $type, $gmt = 0 ) {
 	return $datetime->format( $type );
 }
 
+
+
 /**
  * Retrieves the current time as an object using the site's timezone.
  *
