@@ -29,7 +29,7 @@ if( $post_slug ){
           <label for="search_keywords"><?php esc_html_e('Keywords', 'jobscout'); ?></label>
           <div class="input_with_icon">
             
-            <input type="text" id="search_keywords" name="search_keywords" placeholder="<?php esc_attr_e('Keywords', 'jobscout'); ?>">
+            <input type="text" id="search_keywords" name="search_keywords" placeholder="<?php esc_attr_e('Nội dung tìm kiếm', 'jobscout'); ?>">
           </div>
         </div>
 
