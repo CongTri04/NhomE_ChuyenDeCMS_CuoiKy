@@ -23,7 +23,7 @@ if ($query->have_posts()) : ?>
     <?php
     if ($blog_heading) echo '<h2 class="title-card">' . esc_html($blog_heading) . '</h2>';
     ?>
-    <div class="container">
+    <div class="container-card">
 
 
 
@@ -58,12 +58,12 @@ wp_reset_postdata();
         margin-top: 50px;
         margin-bottom: 10px;
     }
-    .container {
-
+    .container-card {
         display: flex;
         flex-wrap: wrap;
         padding: 20px;
-
+        margin: 0 auto;
+        margin-left: 76px;
     }
 
     .card {
@@ -71,7 +71,7 @@ wp_reset_postdata();
         margin-bottom: 35px;
         display: flex;
         background-color: #ffffff;
-        width: 535px;
+        width: 560px;
         border: 1px solid #e0e0e0;
     }
 
