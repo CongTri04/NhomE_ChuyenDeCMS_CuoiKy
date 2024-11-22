@@ -63,7 +63,7 @@ if ($ed_jobposting && jobscout_is_wp_job_manager_activated() && $job_title) :
                                 <div class="job-card border rounded p-3 shadow-sm h-100">
                                     <div class="row">
                                         <div class="col-md-3">
-                                            <div class="company-logo text-center mb-3 mt-1">
+                                            <div class="company-logo text-center mb-2 mt-1">
                                                 <?php if ($company_logo) : ?>
                                                     <img src="<?php echo esc_url($company_logo); ?>" alt="<?php the_title(); ?>">
                                                 <?php endif; ?>
@@ -116,6 +116,7 @@ if ($ed_jobposting && jobscout_is_wp_job_manager_activated() && $job_title) :
         background-color: #ffffff;
         border: 1px solid #e6e6e6;
         padding: 20px;
+        border-radius: 0px;
     }
 
     .company-logo img {
@@ -130,6 +131,7 @@ if ($ed_jobposting && jobscout_is_wp_job_manager_activated() && $job_title) :
         font-size: 22px;
         font-weight: 700;
         color: #333;
+        font-weight: bold;
     }
 
     .job-date,
@@ -185,9 +187,11 @@ if ($ed_jobposting && jobscout_is_wp_job_manager_activated() && $job_title) :
         font-weight: bold;
         color: #f57c40;
         border: 2px solid #f57c40;
+        border-radius: 0px;
         background-color: transparent;
-        padding: 10px 20px;
+        padding: 15px 20px;
         text-align: center;
         text-transform: uppercase;
+        width: 250px;
     }
 </style>
