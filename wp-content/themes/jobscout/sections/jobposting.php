@@ -124,7 +124,7 @@ if ($ed_jobposting && jobscout_is_wp_job_manager_activated() && $job_title) :
         width: 120px;
         object-fit: contain;
         margin: 0 auto;
-        border: 1px solid #000;
+        border: 1px solid #999;
     }
 
     .job-title {
