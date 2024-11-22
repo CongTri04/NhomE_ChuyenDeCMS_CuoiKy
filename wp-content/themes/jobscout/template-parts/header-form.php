@@ -76,7 +76,7 @@ if( $post_slug ){
   margin-right: 20px;
 }
 .location_search{
-  width: 300px;
+  width: 280px;
   margin-right: 20px;
 }
 
@@ -98,7 +98,7 @@ if( $post_slug ){
   font-weight: bold;
   text-transform: uppercase;
   cursor: pointer;
-  width: 150px; /* Rộng toàn bộ chiều ngang */
+  width: 170px; /* Rộng toàn bộ chiều ngang */
   text-align: center;
   transition: background-color 0.3s ease;
   height: 60px;
