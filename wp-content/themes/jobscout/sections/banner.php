@@ -6,10 +6,10 @@
  */
 
 $ed_banner         = get_theme_mod( 'ed_banner_section', true );
-$banner_title      = get_theme_mod( 'banner_title', __( 'Aim Higher, Dream Bigger', 'jobscout' ) );
-$banner_subtitle   = get_theme_mod( 'banner_subtitle', __( 'Each month, more than 7 million JobScout turn to website in their search for work, making over 160,000 applications every day.', 'jobscout' ) );
+$banner_title      = get_theme_mod( 'banner_title', __( 'TÌM KIẾM CÔNG VIỆC MƠ ƯỚC', 'jobscout' ) );
+$banner_subtitle   = get_theme_mod( 'banner_subtitle', __( 'Bí quyết đằng sau công ty của chúng tôi rất đơn giản: luôn đặt mình vào vị trí của người khác - nhân viên, khách hàng hoặc khách hàng. Điều này cho phép chúng tôi nhìn thế giới qua đôi mắt của họ, dự đoán nhu cầu của họ và hiểu rõ hơn về cảm xúc của họ.', 'jobscout' ) );
 $find_a_job_link   = get_option( 'job_manager_jobs_page_id', 0 );
-        
+
 if( $ed_banner && has_custom_header() ){ ?>
     <div id="banner-section" class="site-banner<?php if( has_header_video() ) echo esc_attr( ' video-banner' ); ?>">
         <div class="item">
