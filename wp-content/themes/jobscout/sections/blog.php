@@ -87,6 +87,7 @@ wp_reset_postdata();
         flex-direction: row;
         background-color: #ffffff;
         width: 550px;
+        border: none;
     }
 
     .card img {
