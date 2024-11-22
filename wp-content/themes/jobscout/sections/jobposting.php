@@ -28,7 +28,7 @@ if ($ed_jobposting && jobscout_is_wp_job_manager_activated() && $job_title) :
                     $args = array(
                         'post_type'      => 'job_listing',
                         'post_status'    => 'publish',
-                        'posts_per_page' => 6,
+                        'posts_per_page' => 2,
                         'meta_query'     => array(
                             'relation' => 'OR',
                             array(
