@@ -142,13 +142,14 @@ if ($ed_jobposting && jobscout_is_wp_job_manager_activated() && $job_title) :
 
     .job-meta {
         margin-top: 10px;
+
     }
 
     .job-meta .badge {
         font-size: 13px;
-        padding: 7px;
         background-color: #f8f8f8;
         color: #555;
+        margin-right: -5px;
     }
 
     .job-description {
