@@ -1,78 +1,132 @@
 <?php
+
 /**
  * Blog Section
  * 
  * @package JobScout
  */
 
-$blog_heading = get_theme_mod( 'blog_section_title', __( 'Latest Articles', 'jobscout' ) );
-$sub_title    = get_theme_mod( 'blog_section_subtitle', __( 'We will help you find it. We are your first step to becoming everything you want to be.', 'jobscout' ) );
-$blog         = get_option( 'page_for_posts' );
-$label        = get_theme_mod( 'blog_view_all', __( 'See More Posts', 'jobscout' ) );
-$hide_author  = get_theme_mod( 'ed_post_author', false );
-$hide_date    = get_theme_mod( 'ed_post_date', false );
-$ed_blog      = get_theme_mod( 'ed_blog', true );
+$blog_heading = get_theme_mod('blog_section_title', __('NEWEST BLOG ENTRIES', 'jobscout'));
+
+$hide_author  = get_theme_mod('ed_post_author', false);
+$hide_date    = get_theme_mod('ed_post_date', false);
+$ed_blog      = get_theme_mod('ed_blog', true);
 
 $args = array(
-    'post_type'           => 'post',
-    'post_status'         => 'publish',
-    'posts_per_page'      => 3,
-    'ignore_sticky_posts' => true
+    'post_type' => 'post',
+    'posts_per_page' => 4,
 );
 
-$qry = new WP_Query( $args );
+$query = new WP_Query($args);
 
-if( $ed_blog && ( $blog_heading || $sub_title || $qry->have_posts() ) ){ ?>
-<section id="blog-section" class="article-section">
-	<div class="container">
-        <?php 
-            if( $blog_heading ) echo '<h2 class="section-title">' . esc_html( $blog_heading ) . '</h2>';
-            if( $sub_title ) echo '<div class="section-desc">' . wpautop( wp_kses_post( $sub_title ) ) . '</div>'; 
-        ?>
+if ($query->have_posts()) : ?>
+    <?php
+    if ($blog_heading) echo '<h2 class="title-card">' . esc_html($blog_heading) . '</h2>';
+    ?>
+    <div class="container-card">
+        <?php while ($query->have_posts()) : $query->the_post(); ?>
+            <div class="card">
+                <?php if (has_post_thumbnail()) : ?>
+                    <img src="<?php the_post_thumbnail_url('medium'); ?>" alt="<?php the_title(); ?>" loading="lazy">
+                <?php else : ?>
+                    <img src="https://placehold.co/200x200" alt="Placeholder image" loading="lazy">
+                <?php endif; ?>
+                <div class="card-body">
+                    <h2><?php echo mb_strimwidth(get_the_title(), 0, 35, ''); ?></h2>
+                    <p><?php echo wp_trim_words(get_the_excerpt(), 15, '...'); ?></p>
+                    <a href="<?php the_permalink(); ?>">Read More</a>
+                </div>
+            </div>
+        <?php endwhile; ?>
+    </div>
+<?php endif;
+wp_reset_postdata();
+?>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        margin: 0;
+        padding: 0;
+    }
+
+    .title-card {
+        text-align: center;
+        /* Căn giữa tiêu đề */
+        margin: 0 auto;
+        margin-top: 50px;
+        margin-bottom: 10px;
+        font-weight: bold;
+        font-size: 40px;
+    }
+
+    .container-card {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        /* Căn giữa các thẻ con */
+        align-items: center;
+        /* Căn giữa theo chiều dọc nếu cần */
+        padding: 20px;
+        /* Đảm bảo container nằm giữa */
+        width: 100%;
+        /* Đảm bảo container chiếm toàn bộ chiều ngang */
+        /* Giới hạn chiều rộng nếu cần */
+        box-sizing: border-box;
+        /* Đảm bảo padding không ảnh hưởng đến kích thước */
+        border: none;
+    }
+
+
+    .card {
+        margin: 20px;
+        margin-bottom: 40px;
+        display: flex;
+        flex-direction: row;
+        background-color: #ffffff;
+        width: 600px;
+        border: none;
         
-        <?php if( $qry->have_posts() ){ ?>
-           <div class="article-wrap">
-    			<?php 
-                while( $qry->have_posts() ){
-                    $qry->the_post(); ?>
-                    <article class="post">
-        				<figure class="post-thumbnail">
-                            <a href="<?php the_permalink(); ?>" class="post-thumbnail">
-                            <?php 
-                                if( has_post_thumbnail() ){
-                                    the_post_thumbnail( 'jobscout-blog', array( 'itemprop' => 'image' ) );
-                                }else{ 
-                                    jobscout_fallback_svg_image( 'jobscout-blog' ); 
-                                }                            
-                            ?>                        
-                            </a>
-                        </figure>
-                        <header class="entry-header">
-                            <div class="entry-meta">
-                                <?php 
-                                    if( ! $hide_author ) jobscout_posted_by(); 
-                                    if( ! $hide_date ) jobscout_posted_on();
-                                ?> 
-                            </div>
-                            <h3 class="entry-title">
-                                <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
-                            </h3>
-                        </header>
-        			</article>			
-        			<?php 
-                }
-                wp_reset_postdata();
-                ?>
-    		</div><!-- .article-wrap -->
-    		
-            <?php if( $blog && $label ){ ?>
-                <div class="btn-wrap">
-        			<a href="<?php the_permalink( $blog ); ?>" class="btn"><?php echo esc_html( $label ); ?></a>
-        		</div>
-            <?php } ?>
-        
-        <?php } ?>
-	</div>
-</section>
-<?php 
-}
+    }
+
+    .card img {
+        width: 220px;
+        height: 220px;
+        margin: 20px 10px 20px 20px;
+        border-radius: 4px;
+    }
+
+    .card-body {
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        max-width: 300px;
+
+    }
+
+    .card-body h2 {
+        font-size: 20px;
+        margin: 0 0 10px;
+        font-weight: bold;
+        padding-right: 30px;
+    }
+
+    .card-body p {
+        font-size: 16px;
+        color: #6c757d;
+        margin: 0px 0 10px;
+    }
+
+    .card-body a {
+        color: #ff6f00;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 16px;
+        transition: color 0.3s ease;
+    }
+
+    .card-body a:hover {
+        color: #e65100;
+    }
+</style>
