@@ -52,27 +52,39 @@ wp_reset_postdata();
         margin: 0;
         padding: 0;
     }
-    .title-card{
-        text-align: center; /* Căn giữa tiêu đề */
+
+    .title-card {
+        text-align: center;
+        /* Căn giữa tiêu đề */
         margin: 0 auto;
         margin-top: 50px;
         margin-bottom: 10px;
     }
+
     .container-card {
         display: flex;
         flex-wrap: wrap;
+        justify-content: center;
+        /* Căn giữa các thẻ con */
+        align-items: center;
+        /* Căn giữa theo chiều dọc nếu cần */
         padding: 20px;
-        margin: 0 auto;
-        margin-left: 76px;
+        /* Đảm bảo container nằm giữa */
+        width: 100%;
+        /* Đảm bảo container chiếm toàn bộ chiều ngang */
+        /* Giới hạn chiều rộng nếu cần */
+        box-sizing: border-box;
+        /* Đảm bảo padding không ảnh hưởng đến kích thước */
         border: none;
     }
+
 
     .card {
         margin: 15px;
         margin-bottom: 35px;
         display: flex;
         background-color: #ffffff;
-        width: 560px;
+        width: 550px;
         border: 1px solid #e0e0e0;
     }
 
