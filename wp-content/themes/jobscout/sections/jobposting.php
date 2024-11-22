@@ -1,7 +1,6 @@
 <head>
     <!-- Thêm liên kết đến Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <?php
@@ -97,46 +96,15 @@ if ($ed_jobposting && jobscout_is_wp_job_manager_activated() && $job_title) :
                     ?>
                 </div>
                 <div class="text-center mt-4">
-                    <button id="load-more" class="btn btn-primary">VIEW MORE JOBS</button>
+                    <a href="<?php echo esc_url(get_permalink(get_page_by_path('jobs'))); ?>" id="load-more" class="btn btn-primary">VIEW MORE JOBS</a>
                 </div>
+
             <?php else : ?>
                 <p class="text-center">Hiện tại không có công việc nào được đăng.</p>
             <?php endif; ?>
         </div>
     </section>
 <?php endif; ?>
-
-<script>
-    jQuery(function($){
-        var page = 2; // Bắt đầu từ trang 2 vì các bài đầu tiên đã được hiển thị
-        $('#load-more').on('click', function(){
-            var button = $(this);
-            button.text('Loading...'); // Thay đổi text thành "Loading..."
-
-            $.ajax({
-                url: '<?php echo admin_url('admin-ajax.php'); ?>',
-                type: 'GET',
-                data: {
-                    action: 'load_more_jobs', // Tên hành động cho AJAX
-                    page: page,
-                },
-                success: function(response) {
-                    if(response) {
-                        $('#job-list').append(response); // Thêm các công việc mới vào sau các công việc hiện có
-                        page++; // Tăng số trang lên
-                        button.text('VIEW MORE JOBS'); // Đặt lại text nút
-                    } else {
-                        button.text('No more jobs to load'); // Nếu không còn công việc, thay đổi text
-                        button.prop('disabled', true); // Vô hiệu hóa nút
-                    }
-                },
-                error: function() {
-                    button.text('Error, please try again');
-                }
-            });
-        });
-    });
-</script>
 
 <style>
     .top-job-section {
@@ -191,7 +159,24 @@ if ($ed_jobposting && jobscout_is_wp_job_manager_activated() && $job_title) :
         margin-bottom: 5px;
     }
 
-    
+    @media (max-width: 768px) {
+        .job-card {
+            padding: 15px;
+        }
+
+        .job-title {
+            font-size: 14px;
+        }
+
+        .job-meta .badge {
+            font-size: 11px;
+            padding: 3px 8px;
+        }
+
+        .job-description {
+            font-size: 12px;
+        }
+    }
 
     #load-more {
         margin-top: 10px;
