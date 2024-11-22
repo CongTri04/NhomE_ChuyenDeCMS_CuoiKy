@@ -48,7 +48,7 @@ wp_reset_postdata();
 <style>
     body {
         font-family: Arial, sans-serif;
-        background-color: #f8f9fa;
+        background-color: #f2f2f2;
         margin: 0;
         padding: 0;
     }
@@ -64,6 +64,7 @@ wp_reset_postdata();
         padding: 20px;
         margin: 0 auto;
         margin-left: 76px;
+        border: none;
     }
 
     .card {
